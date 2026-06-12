@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robixlo | End-to-End Engineering, AI & Hardware Solutions</title>
+    <meta name="description" content="Robixlo bridges the gap between academic research and industrial execution, providing top-tier solutions in embedded systems, custom AI model training, computer vision pipelines, and custom electronics R&D.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#070a13',
+                        brandCardBg: '#0e1322',
+                        brandCyan: '#00f0ff',
+                        brandIndigo: '#6366f1',
+                        brandPurple: '#a855f7',
+                        brandGray: '#94a3b8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-slower': 'pulse-slower 12s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow-line': 'glow-line 4s linear infinite',
+                    },
+                    keyframes: {
+                        'pulse-slow': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.2' },
+                            '50%': { transform: 'scale(1.15) translate(20px, -20px)', opacity: '0.4' },
+                        },
+                        'pulse-slower': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.25' },
+                            '50%': { transform: 'scale(1.2) translate(-30px, 30px)', opacity: '0.45' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        'glow-line': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/css">
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070a13;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Ambient grid background overlay */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism custom classes */
+        .glass-panel {
+            background: rgba(14, 19, 34, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mouse tracking glow utility for services cards */
+        .glow-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            background: radial-gradient(
+                800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+                rgba(255, 255, 255, 0.06),
+                transparent 40%
+            );
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .glow-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Form floating labels helper */
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-slate-100 font-sans antialiased selection:bg-brandCyan selection:text-brandDark overflow-x-hidden">
+
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[10%] left-[5%] w-[45vw] h-[45vw] rounded-full bg-brandCyan/10 blur-[130px] animate-pulse-slow"></div>
+        <div class="absolute top-[40%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-brandPurple/10 blur-[150px] animate-pulse-slower"></div>
+        <div class="absolute bottom-[5%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-brandIndigo/10 blur-[120px] animate-pulse-slow"></div>
+    </div>
+
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <a href="#home" class="flex items-center group focus:outline-none">
+                <img src="logo.PNG" alt="Robixlo Logo" class="h-12 w-auto object-contain rounded-full shadow-lg shadow-brandCyan/20 group-hover:scale-105 transition-transform duration-300">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-medium tracking-wide">
+                <a href="#home" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none">Home</a>
+                <a href="#about" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none">About</a>
+                <a href="#services" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none">Services</a>
+                <a href="#contact" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none">Contact Us</a>
+            </nav>
+
+            <div class="hidden md:block">
+                <a href="#contact" class="relative group inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-slate-100 rounded-lg group bg-gradient-to-br from-brandCyan to-brandIndigo group-hover:from-brandCyan group-hover:to-brandIndigo hover:text-white focus:outline-none">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-brandDark rounded-md group-hover:bg-opacity-0">
+                        Discuss Project
+                    </span>
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-brandCyan transition-colors focus:outline-none" aria-label="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-brandDark/95 border-l border-white/10 backdrop-blur-xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+            <div class="flex flex-col h-full px-6 py-8">
+                <div class="flex items-center justify-between mb-12">
+                    <span class="font-heading font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-brandCyan to-brandIndigo">
+                        Menu
+                    </span>
+                    <button id="mobile-menu-close" class="text-slate-400 hover:text-brandCyan transition-colors focus:outline-none">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <nav class="flex flex-col gap-6 font-heading text-lg font-medium">
+                    <a href="#home" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Home</a>
+                    <a href="#about" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">About</a>
+                    <a href="#services" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Services</a>
+                    <a href="#contact" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Contact Us</a>
+                </nav>
+
+                <div class="mt-auto">
+                    <a href="#contact" class="mobile-link block w-full py-4 text-center rounded-xl bg-gradient-to-r from-brandCyan to-brandIndigo text-brandDark font-heading font-bold hover:brightness-110 transition-all">
+                        Discuss Your Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        
+        <section id="home" class="min-h-screen flex items-center justify-center pt-28 pb-16 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 flex flex-col items-start space-y-8 text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs text-brandCyan font-mono tracking-wider uppercase border border-brandCyan/20">
+                        <span class="w-2 h-2 rounded-full bg-brandCyan animate-ping"></span>
+                        Next-Gen Engineering Ecosystem
+                    </div>
+                    
+                    <h1 class="font-heading font-bold text-5xl sm:text-6xl md:text-7xl leading-tight tracking-tight select-none">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-300">We Are</span>
+                        <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-brandCyan via-brandIndigo to-brandPurple">
+                            Robixlo
+                        </span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-slate-400 font-sans leading-relaxed max-w-2xl">
+                        End-to-End Engineering, AI, and Hardware Solutions. We bring bold concepts from experimental R&D to enterprise-scale deployment.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <a href="#contact" class="px-8 py-4 text-center rounded-xl bg-gradient-to-r from-brandCyan to-brandIndigo text-brandDark font-heading font-semibold hover:opacity-95 shadow-lg shadow-brandCyan/20 transition-all duration-300 hover:scale-[1.02] focus:outline-none">
+                            Discuss Your Project <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                        <a href="#services" class="px-8 py-4 text-center rounded-xl glass-panel text-slate-200 font-heading font-semibold hover:bg-white/5 transition-all duration-300 hover:scale-[1.02] border border-white/10 focus:outline-none">
+                            Explore Services
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center items-center relative animate-float">
+                    <div class="absolute w-72 h-72 rounded-full bg-brandIndigo/20 blur-[80px] pointer-events-none"></div>
+                    
+                    <div class="w-full max-w-md aspect-square rounded-2xl glass-panel p-6 relative flex flex-col justify-between overflow-hidden shadow-2xl border border-white/10">
+                        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brandCyan to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brandPurple to-transparent"></div>
+                        
+                        <div class="flex items-center justify-between pb-4 border-b border-white/5 font-mono text-[10px] text-slate-400">
+                            <span class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                SYSTEM_STATUS: OPERATIONAL
+                            </span>
+                            <span class="text-brandCyan">v2.0.26</span>
+                        </div>
+
+                        <div class="my-auto py-6 flex flex-col justify-center items-center space-y-6">
+                            <svg class="w-48 h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M40 100 L100 50 M40 100 L100 150 M100 50 L160 100 M100 150 L160 100 M100 50 L100 150" stroke="rgba(99, 102, 241, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" />
+                                <circle cx="100" cy="100" r="30" stroke="url(#cyanIndigoGradient)" stroke-width="2" fill="rgba(7, 10, 19, 0.8)" />
+                                
+                                <g class="animate-pulse">
+                                    <circle cx="40" cy="100" r="16" fill="rgba(14, 19, 34, 0.9)" stroke="#00f0ff" stroke-width="2" />
+                                    <path d="M34 100 H46 M40 94 V106" stroke="#00f0ff" stroke-width="1.5" />
+                                </g>
+
+                                <g class="animate-pulse" style="animation-delay: 1s;">
+                                    <circle cx="100" cy="50" r="14" fill="rgba(14, 19, 34, 0.9)" stroke="#a855f7" stroke-width="2" />
+                                    <circle cx="100" cy="50" r="4" fill="#a855f7" />
+                                </g>
+
+                                <g class="animate-pulse" style="animation-delay: 2s;">
+                                    <circle cx="100" cy="150" r="14" fill="rgba(14, 19, 34, 0.9)" stroke="#a855f7" stroke-width="2" />
+                                    <circle cx="100" cy="150" r="4" fill="#a855f7" />
+                                </g>
+
+                                <g class="animate-pulse" style="animation-delay: 0.5s;">
+                                    <circle cx="160" cy="100" r="16" fill="rgba(14, 19, 34, 0.9)" stroke="#6366f1" stroke-width="2" />
+                                    <rect x="154" y="94" width="12" height="12" rx="2" stroke="#6366f1" stroke-width="1.5" />
+                                </g>
+
+                                <foreignObject x="88" y="88" width="24" height="24">
+                                    <div class="w-full h-full flex items-center justify-center text-slate-100">
+                                        <i class="fa-solid fa-brain text-xs text-brandCyan"></i>
+                                    </div>
+                                </foreignObject>
+
+                                <defs>
+                                    <linearGradient id="cyanIndigoGradient" x1="40" y1="100" x2="160" y2="100" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#00f0ff" />
+                                        <stop offset="0.5" stop-color="#6366f1" />
+                                        <stop offset="1" stop-color="#a855f7" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span class="font-mono text-xs tracking-widest text-brandCyan">BRIDGE_LINK: ACTIVE</span>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2 border-t border-white/5 pt-4 text-center font-mono">
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase">Latency</div>
+                                <div class="text-xs text-green-400">1.4ms</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase">GPU Load</div>
+                                <div class="text-xs text-slate-200">22.4%</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase">Edge Temp</div>
+                                <div class="text-xs text-brandPurple">42.5°C</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="about" class="py-24 px-6 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-5 flex flex-col space-y-4">
+                        <div class="font-mono text-xs text-brandCyan tracking-widest uppercase">The Robixlo Identity</div>
+                        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight">
+                            Bridges the Gap Between Theory and Execution
+                        </h2>
+                        <div class="h-1 w-20 bg-gradient-to-r from-brandCyan to-brandIndigo rounded-full"></div>
+                    </div>
+
+                    <div class="lg:col-span-7 flex flex-col space-y-6">
+                        <p class="text-lg md:text-xl text-slate-300 font-sans leading-relaxed">
+                            At Robixlo, we stand at the critical intersection of academic innovation and industrial operation. We recognize that breakthrough ideas often falter in the translation phase, which is why we offer flexible, comprehensive engineering services designed for agility.
+                        </p>
+                        <p class="text-slate-400 leading-relaxed font-sans">
+                            Whether you represent a university department seeking a rapid-turnaround hardware prototype for a semester project, or an enterprise stakeholder demanding a robust deep-learning infrastructure and high-performance embedded systems, we deliver. We handle the custom design, schematic layout, AI model tuning, and hardware optimization so you can scale rapidly.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+                    <div class="glass-panel p-6 rounded-xl border border-white/5 hover:border-brandCyan/20 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-brandCyan/10 text-brandCyan flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-heading font-semibold text-lg text-white mb-2">Academic Rigor</h3>
+                        <p class="text-sm text-slate-400 font-sans leading-relaxed">
+                            Deep scientific methodologies applied directly to physical prototypes and numerical calculations.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border border-white/5 hover:border-brandIndigo/20 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-brandIndigo/10 text-brandIndigo flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+                        <h3 class="font-heading font-semibold text-lg text-white mb-2">Industrial Reliability</h3>
+                        <p class="text-sm text-slate-400 font-sans leading-relaxed">
+                            Battle-tested system architectures prepared for heavy runtimes, hardware scaling, and safety standards.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border border-white/5 hover:border-brandPurple/20 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-brandPurple/10 text-brandPurple flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="font-heading font-semibold text-lg text-white mb-2">Rapid Execution</h3>
+                        <p class="text-sm text-slate-400 font-sans leading-relaxed">
+                            Flexible pipeline execution resulting in accelerated iterations, clean coding structures, and quick turnarounds.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-24 px-6 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                    <div class="font-mono text-xs text-brandCyan tracking-widest uppercase">Dual Specialization</div>
+                    <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white leading-tight">
+                        Our Specialized Engineering Tracks
+                    </h2>
+                    <p class="text-slate-400 text-sm md:text-base font-sans">
+                        We organize our skills to deliver dedicated execution paths. Explore our academic support mechanisms and heavy enterprise stacks.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="glow-card glass-panel rounded-2xl p-8 md:p-10 border border-brandCyan/10 hover:border-brandCyan/30 transition-all duration-500 group flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-8">
+                                <span class="font-mono text-[10px] text-brandCyan tracking-wider uppercase bg-brandCyan/10 px-2.5 py-1 rounded-full border border-brandCyan/20">
+                                    Track 01
+                                </span>
+                                <div class="w-12 h-12 rounded-xl bg-brandCyan/10 text-brandCyan flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-brandCyan group-hover:text-brandDark transition-all duration-300">
+                                    <i class="fa-solid fa-microchip"></i>
+                                </div>
+                            </div>
+
+                            <h3 class="font-heading font-bold text-2xl md:text-3xl text-white mb-4">
+                                Academic & R&D Projects
+                            </h3>
+                            <p class="text-slate-400 text-sm md:text-base mb-8 leading-relaxed font-sans">
+                                Designed for university researchers, student groups, and labs needing functional prototypes. We turn complex research questions and simulation parameters into physical assemblies quickly.
+                            </p>
+
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandCyan/10 text-brandCyan flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandCyan/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">Semester & Final Year Projects</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">Custom assistance to execute complex student hardware and software milestones.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandCyan/10 text-brandCyan flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandCyan/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">Embedded Systems (Arduino, Raspberry Pi)</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">Firmware writing, board layouts, hardware integration, and peripheral drivers configuration.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandCyan/10 text-brandCyan flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandCyan/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">MATLAB Simulations</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">Mathematical modelling, control systems scripting, and telemetry validation visualizations.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandCyan/10 text-brandCyan flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandCyan/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">Custom Electronics R&D</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">PCB schematic designs, components sourcing layouts, and quick breadboard mockups verification.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-12 pt-6 border-t border-white/5">
+                            <a href="#contact" onclick="selectTrack('Academic')" class="inline-flex items-center gap-2 text-xs text-brandCyan font-mono tracking-widest uppercase hover:underline focus:outline-none">
+                                Start Academic Inquiry <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glow-card glass-panel rounded-2xl p-8 md:p-10 border border-brandPurple/10 hover:border-brandPurple/30 transition-all duration-500 group flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-8">
+                                <span class="font-mono text-[10px] text-brandPurple tracking-wider uppercase bg-brandPurple/10 px-2.5 py-1 rounded-full border border-brandPurple/20">
+                                    Track 02
+                                </span>
+                                <div class="w-12 h-12 rounded-xl bg-brandPurple/10 text-brandPurple flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-brandPurple group-hover:text-brandDark transition-all duration-300">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                            </div>
+
+                            <h3 class="font-heading font-bold text-2xl md:text-3xl text-white mb-4">
+                                Enterprise AI & Software
+                            </h3>
+                            <p class="text-slate-400 text-sm md:text-base mb-8 leading-relaxed font-sans">
+                                Engineered for businesses demanding commercial deployment, high uptime, and edge AI compute pipelines. We package scientific paradigms into industrial grade software.
+                            </p>
+
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandPurple/10 text-brandPurple flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandPurple/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">Custom Object Detection (YOLO models)</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">Model fine-tuning, dataset labelling automation, dataset generation, and model quantization.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandPurple/10 text-brandPurple flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandPurple/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">Computer Vision Pipelines</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">Multi-stream video decoding, tracking routines (ByteTrack, DeepSORT), and OpenCV implementations.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandPurple/10 text-brandPurple flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandPurple/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">Hardware Acceleration</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">NVIDIA CUDA optimizations, TensorRT model exports, and high-framerate edge inference.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-brandPurple/10 text-brandPurple flex items-center justify-center text-[10px] shrink-0 mt-0.5 border border-brandPurple/20">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <div>
+                                        <h4 class="font-heading font-medium text-white text-sm">IoT System Architecture</h4>
+                                        <p class="text-xs text-slate-400 font-sans mt-0.5">Secure MQTT communications, fleet health dashboards, OTA updating grids, and remote telemetry logging.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-12 pt-6 border-t border-white/5">
+                            <a href="#contact" onclick="selectTrack('Enterprise')" class="inline-flex items-center gap-2 text-xs text-brandPurple font-mono tracking-widest uppercase hover:underline focus:outline-none">
+                                Start Enterprise Inquiry <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 px-6 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-12">
+                        <div class="space-y-6">
+                            <div class="font-mono text-xs text-brandCyan tracking-widest uppercase">Consulting</div>
+                            <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white">
+                                Let's Build Something Extraordinary Together
+                            </h2>
+                            <p class="text-slate-400 leading-relaxed font-sans">
+                                Fill out our brief intake form, selecting the project model that matches your needs. Our lead solutions architect will review your parameters and follow up within 24 hours.
+                            </p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-brandIndigo/10 text-brandIndigo flex items-center justify-center text-sm shrink-0 border border-brandIndigo/20">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase font-mono">Mail Room</div>
+                                    <a href="mailto:info@robixlo.com" class="text-sm font-medium text-slate-200 hover:text-brandCyan transition-colors">info@robixlo.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-brandCyan/10 text-brandCyan flex items-center justify-center text-sm shrink-0 border border-brandCyan/20">
+                                    <i class="fa-solid fa-terminal"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase font-mono">Location</div>
+                                    <span class="text-sm font-medium text-slate-200">Global Remote Support | Labs based in Karachi, PK</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7">
+                        <div class="glass-panel p-8 md:p-10 rounded-2xl border border-white/5 relative overflow-hidden shadow-xl">
+                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-brandIndigo/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                            <form id="project-form" class="space-y-6 relative z-10" onsubmit="handleFormSubmit(event)">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="flex flex-col space-y-2">
+                                        <label for="client-name" class="text-xs font-heading font-medium tracking-wide text-slate-300">Your Name <span class="text-brandCyan">*</span></label>
+                                        <input type="text" id="client-name" required
+                                            class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all"
+                                            placeholder="John Doe">
+                                    </div>
+
+                                    <div class="flex flex-col space-y-2">
+                                        <label for="client-email" class="text-xs font-heading font-medium tracking-wide text-slate-300">Email Address <span class="text-brandCyan">*</span></label>
+                                        <input type="email" id="client-email" required
+                                            class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all"
+                                            placeholder="john@example.com">
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col space-y-2">
+                                    <label for="project-type" class="text-xs font-heading font-medium tracking-wide text-slate-300">Project Type <span class="text-brandCyan">*</span></label>
+                                    <div class="relative">
+                                        <select id="project-type" required
+                                            class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all appearance-none">
+                                            <option value="" disabled selected class="text-slate-600">Select Project Framework</option>
+                                            <option value="Academic">Academic & R&D Project Support</option>
+                                            <option value="Enterprise">Enterprise AI & Software Engineering</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col space-y-2">
+                                    <label for="client-message" class="text-xs font-heading font-medium tracking-wide text-slate-300">Project Parameters & Objectives <span class="text-brandCyan">*</span></label>
+                                    <textarea id="client-message" required rows="4"
+                                        class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all resize-none"
+                                        placeholder="Please provide details regarding board specifications, data frameworks, or custom algorithms..."></textarea>
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-4 rounded-xl bg-gradient-to-r from-brandCyan via-brandIndigo to-brandPurple text-brandDark font-heading font-bold hover:opacity-95 shadow-lg shadow-brandIndigo/25 transition-all duration-300 hover:scale-[1.01] focus:outline-none">
+                                    Submit Request <i class="fa-solid fa-paper-plane ml-2 text-xs"></i>
+                                </button>
+                            </form>
+
+                            <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-sans gap-4">
+                                <span class="text-center sm:text-left">Or email us directly at: <a href="mailto:info@robixlo.com" class="text-slate-300 hover:text-brandCyan font-mono font-medium underline">info@robixlo.com</a></span>
+                                <button onclick="copyEmail()" class="flex items-center gap-1.5 hover:text-slate-300 transition-colors focus:outline-none bg-white/5 border border-white/10 hover:border-brandCyan/20 px-2.5 py-1.5 rounded-md">
+                                    <i id="copy-icon" class="fa-regular fa-copy"></i> <span id="copy-text">Copy Email</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/5 bg-brandDark/80 backdrop-blur-md relative z-10 py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="text-xs text-slate-500 font-mono text-center sm:text-left">
+                &copy; 2026 Robixlo. All rights reserved. Built for engineering precision.
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+    <script>
+        // 1. Mobile Menu Drawer Navigation
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuCloseBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close drawer if clicking outside drawer element
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('translate-x-full')) return;
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // 2. Navigation Header Scroll Backdrop Shift
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.remove('border-transparent', 'h-20');
+            } else {
+                navbar.classList.remove('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.add('border-transparent', 'h-20');
+            }
+        });
+
+        // 3. Mouse Coordinate Tracking for Glowing Cards Effect
+        const cards = document.querySelectorAll('.glow-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // 4. Anchor click selector for Services links
+        function selectTrack(trackName) {
+            const selectElement = document.getElementById('project-type');
+            if (selectElement) {
+                selectElement.value = trackName;
+            }
+        }
+
+        // 5. Copy Email to Clipboard helper
+        function copyEmail() {
+            const email = "info@robixlo.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const icon = document.getElementById('copy-icon');
+                const text = document.getElementById('copy-text');
+                
+                // Change style to reflect success
+                icon.className = "fa-solid fa-check text-green-400";
+                text.innerText = "Copied!";
+                
+                showToast("Success", "Email copied to clipboard.", "success");
+                
+                setTimeout(() => {
+                    icon.className = "fa-regular fa-copy";
+                    text.innerText = "Copy Email";
+                }, 3000);
+            }).catch(err => {
+                showToast("Error", "Could not copy email automatically.", "error");
+            });
+        }
+
+        // 6. Dynamic Form Submit Handler & Toast Display
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('client-name').value.trim();
+            const email = document.getElementById('client-email').value.trim();
+            const track = document.getElementById('project-type').value;
+            const message = document.getElementById('client-message').value.trim();
+
+            if (!name || !email || !track || !message) {
+                showToast("Validation Error", "All required fields must be completed.", "error");
+                return;
+            }
+
+            // Simulate form submission API call
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Transmitting...`;
+
+            setTimeout(() => {
+                showToast(
+                    "Parameters Logged",
+                    `Thank you, ${name}. Your ${track} project parameters have been securely transmitted to our team.`,
+                    "success"
+                );
+                
+                // Reset form state
+                document.getElementById('project-form').reset();
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }, 1200);
+        }
+
+        // 7. Premium Custom Toast implementation
+        function showToast(title, body, type = 'info') {
+            const container = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = "w-80 md:w-96 glass-panel rounded-xl border p-4 shadow-xl translate-x-full transition-transform duration-300 ease-out pointer-events-auto flex gap-3 overflow-hidden relative";
+            
+            // Set dynamic borders based on toast categories
+            if (type === 'success') {
+                toast.classList.add('border-green-500/30');
+            } else if (type === 'error') {
+                toast.classList.add('border-red-500/30');
+            } else {
+                toast.classList.add('border-brandIndigo/30');
+            }
+
+            // Icon markup
+            const iconWrap = document.createElement('div');
+            iconWrap.className = `w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-sm border`;
+            
+            if (type === 'success') {
+                iconWrap.className += " bg-green-500/10 text-green-400 border-green-500/20";
+                iconWrap.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+            } else if (type === 'error') {
+                iconWrap.className += " bg-red-500/10 text-red-400 border-red-500/20";
+                iconWrap.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+            } else {
+                iconWrap.className += " bg-brandIndigo/10 text-brandIndigo border-brandIndigo/20";
+                iconWrap.innerHTML = `<i class="fa-solid fa-circle-info"></i>`;
+            }
+
+            const contentWrap = document.createElement('div');
+            contentWrap.className = "flex flex-col gap-0.5 pr-2";
+            
+            const titleEl = document.createElement('h5');
+            titleEl.className = "font-heading font-semibold text-sm text-slate-100";
+            titleEl.innerText = title;
+
+            const bodyEl = document.createElement('p');
+            bodyEl.className = "text-xs text-slate-400 leading-relaxed font-sans";
+            bodyEl.innerText = body;
+
+            contentWrap.appendChild(titleEl);
+            contentWrap.appendChild(bodyEl);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = "absolute top-2 right-2 text-slate-500 hover:text-slate-300 transition-colors text-xs focus:outline-none";
+            closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+            closeBtn.onclick = () => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => { toast.remove(); }, 300);
+            };
+
+            // Loading bar progress indicator
+            const bar = document.createElement('div');
+            bar.className = "absolute bottom-0 left-0 h-[2px] bg-gradient-to-r w-full transition-all duration-[4000ms] ease-linear origin-left scale-x-100";
+            if (type === 'success') {
+                bar.classList.add('from-green-500', 'to-emerald-400');
+            } else if (type === 'error') {
+                bar.classList.add('from-red-500', 'to-orange-400');
+            } else {
+                bar.classList.add('from-brandCyan', 'to-brandIndigo');
+            }
+
+            toast.appendChild(iconWrap);
+            toast.appendChild(contentWrap);
+            toast.appendChild(closeBtn);
+            toast.appendChild(bar);
+            container.appendChild(toast);
+
+            // Trigger animation in next tick
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+                // start progress bar depletion
+                setTimeout(() => {
+                    bar.style.transform = 'scale-x(0)';
+                }, 50);
+            }, 10);
+
+            // Self destruct after 4 seconds
+            const autoDestruct = setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
