@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Robixlo | Start Your Project Inquiry</title>
+    <meta name="description" content="Get in touch with Robixlo for custom embedded systems R&D, YOLO computer vision modeling, and rapid MVP design prototyping.">
+    
+    <!-- Google Fonts: Space Grotesk (tech/headings) & Inter (body copy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome v6 for modern tech icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#070a13',
+                        brandCardBg: '#0e1322',
+                        brandCyan: '#00f0ff',
+                        brandIndigo: '#6366f1',
+                        brandPurple: '#a855f7',
+                        brandGray: '#94a3b8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-slower': 'pulse-slower 12s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'pulse-slow': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.2' },
+                            '50%': { transform: 'scale(1.1) translate(15px, -15px)', opacity: '0.35' },
+                        },
+                        'pulse-slower': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.2' },
+                            '50%': { transform: 'scale(1.15) translate(-20px, 20px)', opacity: '0.4' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/css">
+        /* Custom scrollbar to match the futuristic feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070a13;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Ambient grid background overlay */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism custom panel */
+        .glass-panel {
+            background: rgba(14, 19, 34, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Input glowing active focus shadow */
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-slate-100 font-sans antialiased selection:bg-brandCyan selection:text-brandDark overflow-x-hidden">
+
+    <!-- Global Background Elements -->
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[10%] left-[5%] w-[45vw] h-[45vw] rounded-full bg-brandCyan/10 blur-[130px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[10%] right-[5%] w-[45vw] h-[45vw] rounded-full bg-brandPurple/10 blur-[140px] animate-pulse-slower"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center group focus:outline-none">
+                <img src="assets/logo.png" alt="Robixlo Logo" class="h-10 w-auto object-contain mr-3 group-hover:scale-105 transition-transform duration-300">
+                <span class="font-heading font-bold text-2xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 group-hover:to-brandCyan transition-colors duration-300">
+                    Robixlo
+                </span>
+            </a>
+
+            <!-- Desktop Links (with Contact Us active highlight) -->
+            <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-medium tracking-wide">
+                <a href="index.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Home</a>
+                <a href="about.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">About</a>
+                <a href="services.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Services</a>
+                <a href="contact.html" class="text-brandCyan transition-colors duration-200 focus:outline-none border-b-2 border-brandCyan pb-1">Contact Us</a>
+            </nav>
+
+            <!-- Desktop CTA -->
+            <div class="hidden md:block">
+                <a href="contact.html" class="relative group inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-slate-100 rounded-lg group bg-gradient-to-br from-brandCyan to-brandIndigo group-hover:from-brandCyan group-hover:to-brandIndigo hover:text-white focus:outline-none">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-brandDark rounded-md group-hover:bg-opacity-0">
+                        Discuss Project
+                    </span>
+                </a>
+            </div>
+
+            <!-- Mobile Burger Trigger -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-brandCyan transition-colors focus:outline-none" aria-label="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-brandDark/95 border-l border-white/10 backdrop-blur-xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+            <div class="flex flex-col h-full px-6 py-8">
+                <!-- Close Button & Header -->
+                <div class="flex items-center justify-between mb-12">
+                    <span class="font-heading font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-brandCyan to-brandIndigo">
+                        Robixlo Menu
+                    </span>
+                    <button id="mobile-menu-close" class="text-slate-400 hover:text-brandCyan transition-colors focus:outline-none">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Links -->
+                <nav class="flex flex-col gap-6 font-heading text-lg font-medium">
+                    <a href="index.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Home</a>
+                    <a href="about.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">About</a>
+                    <a href="services.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Services</a>
+                    <a href="contact.html" class="mobile-link text-brandCyan border-b border-white/5 pb-2 transition-colors">Contact Us</a>
+                </nav>
+
+                <!-- Mobile Action CTA -->
+                <div class="mt-auto">
+                    <a href="contact.html" class="mobile-link block w-full py-4 text-center rounded-xl bg-gradient-to-r from-brandCyan to-brandIndigo text-brandDark font-heading font-bold hover:brightness-110 transition-all">
+                        Discuss Your Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Contact Content -->
+    <main class="relative z-10 pt-28 pb-16">
+        <section class="py-16 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Text Details Column -->
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-12">
+                        <div class="space-y-6">
+                            <div class="font-mono text-xs text-brandCyan tracking-widest uppercase">Consulting</div>
+                            <h1 class="font-heading font-bold text-3xl sm:text-4xl text-white">
+                                Let's Build Something Extraordinary Together
+                            </h1>
+                            <p class="text-slate-400 leading-relaxed font-sans">
+                                Fill out our brief intake form, selecting the project model that matches your needs. Our lead solutions architect will review your parameters and follow up within 24 hours.
+                            </p>
+                        </div>
+
+                        <!-- Contact Details Area -->
+                        <div class="space-y-6">
+                            <!-- Email -->
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-brandIndigo/10 text-brandIndigo flex items-center justify-center text-sm shrink-0 border border-brandIndigo/20">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase font-mono">Mail Room</div>
+                                    <a href="mailto:saleemzohaib137@gmail.com" class="text-sm font-medium text-slate-200 hover:text-brandCyan transition-colors">saleemzohaib137@gmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Phone Number (Pakistani number requested by user) -->
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-brandCyan/10 text-brandCyan flex items-center justify-center text-sm shrink-0 border border-brandCyan/20">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase font-mono">Direct Dial</div>
+                                    <a href="tel:03059026440" class="text-sm font-medium text-slate-200 hover:text-brandCyan transition-colors">03059026440</a>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-brandPurple/10 text-brandPurple flex items-center justify-center text-sm shrink-0 border border-brandPurple/20">
+                                    <i class="fa-solid fa-terminal"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase font-mono">Location</div>
+                                    <span class="text-sm font-medium text-slate-200">Global Remote Support | Labs based in Islamabad, PK</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form Card -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-panel p-8 md:p-10 rounded-2xl border border-white/5 relative overflow-hidden shadow-xl">
+                            <!-- Blur ambient glow light behind form -->
+                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-brandIndigo/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                            <!-- Formspree endpoint integrated with appropriate name attributes -->
+                            <form id="project-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" class="space-y-6 relative z-10" onsubmit="handleFormSubmit(event)">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <!-- Name -->
+                                    <div class="flex flex-col space-y-2">
+                                        <label for="client-name" class="text-xs font-heading font-medium tracking-wide text-slate-300">Your Name <span class="text-brandCyan">*</span></label>
+                                        <input type="text" id="client-name" name="name" required
+                                            class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all"
+                                            placeholder="John Doe">
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="flex flex-col space-y-2">
+                                        <label for="client-email" class="text-xs font-heading font-medium tracking-wide text-slate-300">Email Address <span class="text-brandCyan">*</span></label>
+                                        <input type="email" id="client-email" name="email" required
+                                            class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all"
+                                            placeholder="john@example.com">
+                                    </div>
+                                </div>
+
+                                <!-- Track Selection (Academic vs Enterprise vs MVP) -->
+                                <div class="flex flex-col space-y-2">
+                                    <label for="project-type" class="text-xs font-heading font-medium tracking-wide text-slate-300">Project Type <span class="text-brandCyan">*</span></label>
+                                    <div class="relative">
+                                        <select id="project-type" name="project-type" required
+                                            class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all appearance-none">
+                                            <option value="" disabled selected class="text-slate-600">Select Project Framework</option>
+                                            <option value="Academic">Academic & R&D Project Support</option>
+                                            <option value="MVP">Rapid MVP Prototyping</option>
+                                            <option value="Enterprise">Enterprise AI & Software Engineering</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Message -->
+                                <div class="flex flex-col space-y-2">
+                                    <label for="client-message" class="text-xs font-heading font-medium tracking-wide text-slate-300">Project Parameters & Objectives <span class="text-brandCyan">*</span></label>
+                                    <textarea id="client-message" name="message" required rows="4"
+                                        class="w-full bg-brandDark border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-brandCyan input-glow transition-all resize-none"
+                                        placeholder="Please provide details regarding board specifications, data frameworks, or custom algorithms..."></textarea>
+                                </div>
+
+                                <!-- Submit CTA Button -->
+                                <button type="submit"
+                                    class="w-full py-4 rounded-xl bg-gradient-to-r from-brandCyan via-brandIndigo to-brandPurple text-brandDark font-heading font-bold hover:opacity-95 shadow-lg shadow-brandIndigo/25 transition-all duration-300 hover:scale-[1.01] focus:outline-none">
+                                    Submit Request <i class="fa-solid fa-paper-plane ml-2 text-xs"></i>
+                                </button>
+                            </form>
+
+                            <!-- Secondary contact note -->
+                            <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-sans gap-4">
+                                <span class="text-center sm:text-left">Or email us directly at: <a href="mailto:saleemzohaib137@gmail.com" class="text-slate-300 hover:text-brandCyan font-mono font-medium underline">saleemzohaib137@gmail.com</a></span>
+                                <button onclick="copyEmail()" class="flex items-center gap-1.5 hover:text-slate-300 transition-colors focus:outline-none bg-white/5 border border-white/10 hover:border-brandCyan/20 px-2.5 py-1.5 rounded-md">
+                                    <i id="copy-icon" class="fa-regular fa-copy"></i> <span id="copy-text">Copy Email</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-brandDark/80 backdrop-blur-md relative z-10 py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <!-- Copyright -->
+            <div class="text-xs text-slate-500 font-mono text-center sm:text-left">
+                &copy; 2026 Robixlo. All rights reserved. Built for engineering precision.
+            </div>
+
+            <!-- Social Links (Instagram / Facebook Placeholders) -->
+            <div class="flex items-center gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Scripting modules -->
+    <script>
+        // 1. Mobile Menu Drawer Navigation
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuCloseBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close drawer if clicking outside drawer elements
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('translate-x-full')) return;
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // 2. Navigation Header Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.remove('border-transparent', 'h-20');
+            } else {
+                navbar.classList.remove('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.add('border-transparent', 'h-20');
+            }
+        });
+
+        // 3. Pre-populate project select dropdown based on query parameter
+        // real developers write this to link pages seamlessly
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const track = urlParams.get('track');
+            if (track) {
+                const selectElement = document.getElementById('project-type');
+                if (selectElement) {
+                    if (track === 'Academic') selectElement.value = 'Academic';
+                    if (track === 'Enterprise') selectElement.value = 'Enterprise';
+                    if (track === 'MVP') selectElement.value = 'MVP';
+                }
+            }
+        });
+
+        // 4. Copy Email to Clipboard helper
+        function copyEmail() {
+            const email = "saleemzohaib137@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const icon = document.getElementById('copy-icon');
+                const text = document.getElementById('copy-text');
+                
+                // Change style to reflect success state
+                icon.className = "fa-solid fa-check text-green-400";
+                text.innerText = "Copied!";
+                
+                showToast("Success", "Email copied to clipboard.", "success");
+                
+                setTimeout(() => {
+                    icon.className = "fa-regular fa-copy";
+                    text.innerText = "Copy Email";
+                }, 3000);
+            }).catch(err => {
+                showToast("Error", "Could not copy email automatically.", "error");
+            });
+        }
+
+        // 5. Dynamic Form Submit Handler (Progressive enhancement for Formspree API)
+        // If placeholder endpoint exists, alert user and simulate success locally.
+        // Otherwise, send actual POST request asynchronously to avoid redirecting the user.
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            const action = form.action;
+            
+            // Check for unchanged Formspree ID template
+            if (action.includes("YOUR_FORM_ID_HERE")) {
+                showToast(
+                    "Configuration Notice", 
+                    "Please replace 'YOUR_FORM_ID_HERE' with your Formspree endpoint ID in contact.html.", 
+                    "info"
+                );
+                
+                // Simulating process for demo/local verification
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Transmitting...`;
+                
+                setTimeout(() => {
+                    showToast(
+                        "Parameters Logged (Sandbox)", 
+                        `Thank you, ${data.get('name')}. Your request for ${data.get('project-type')} has been simulated successfully.`, 
+                        "success"
+                    );
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }, 1200);
+                return;
+            }
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Transmitting...`;
+
+            try {
+                // Perform asynchronous transmission to Formspree
+                const response = await fetch(action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    showToast(
+                        "Transmission Successful", 
+                        `Thank you, ${data.get('name')}. Your project parameters have been submitted.`, 
+                        "success"
+                    );
+                    form.reset();
+                } else {
+                    const result = await response.json();
+                    showToast(
+                        "Transmission Failed", 
+                        result.errors ? result.errors.map(e => e.message).join(', ') : "Submission error.", 
+                        "error"
+                    );
+                }
+            } catch (error) {
+                showToast("Connection Error", "Could not reach the form submission server.", "error");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        // 6. Custom Toast Display Routine
+        function showToast(title, body, type = 'info') {
+            const container = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = "w-80 md:w-96 glass-panel rounded-xl border p-4 shadow-xl translate-x-full transition-transform duration-300 ease-out pointer-events-auto flex gap-3 overflow-hidden relative";
+            
+            if (type === 'success') {
+                toast.classList.add('border-green-500/30');
+            } else if (type === 'error') {
+                toast.classList.add('border-red-500/30');
+            } else {
+                toast.classList.add('border-brandIndigo/30');
+            }
+
+            // Left side icon wrapper
+            const iconWrap = document.createElement('div');
+            iconWrap.className = `w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-sm border`;
+            
+            if (type === 'success') {
+                iconWrap.className += " bg-green-500/10 text-green-400 border-green-500/20";
+                iconWrap.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+            } else if (type === 'error') {
+                iconWrap.className += " bg-red-500/10 text-red-400 border-red-500/20";
+                iconWrap.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+            } else {
+                iconWrap.className += " bg-brandIndigo/10 text-brandIndigo border-brandIndigo/20";
+                iconWrap.innerHTML = `<i class="fa-solid fa-circle-info"></i>`;
+            }
+
+            const contentWrap = document.createElement('div');
+            contentWrap.className = "flex flex-col gap-0.5 pr-2";
+            
+            const titleEl = document.createElement('h5');
+            titleEl.className = "font-heading font-semibold text-sm text-slate-100";
+            titleEl.innerText = title;
+
+            const bodyEl = document.createElement('p');
+            bodyEl.className = "text-xs text-slate-400 leading-relaxed font-sans";
+            bodyEl.innerText = body;
+
+            contentWrap.appendChild(titleEl);
+            contentWrap.appendChild(bodyEl);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = "absolute top-2 right-2 text-slate-500 hover:text-slate-300 transition-colors text-xs focus:outline-none";
+            closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+            closeBtn.onclick = () => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => { toast.remove(); }, 300);
+            };
+
+            // Progressive countdown loading bar
+            const bar = document.createElement('div');
+            bar.className = "absolute bottom-0 left-0 h-[2px] bg-gradient-to-r w-full transition-all duration-[4000ms] ease-linear origin-left scale-x-100";
+            if (type === 'success') {
+                bar.classList.add('from-green-500', 'to-emerald-400');
+            } else if (type === 'error') {
+                bar.classList.add('from-red-500', 'to-orange-400');
+            } else {
+                bar.classList.add('from-brandCyan', 'to-brandIndigo');
+            }
+
+            toast.appendChild(iconWrap);
+            toast.appendChild(contentWrap);
+            toast.appendChild(closeBtn);
+            toast.appendChild(bar);
+            container.appendChild(toast);
+
+            // Pop in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+                setTimeout(() => {
+                    bar.style.transform = 'scale-x(0)';
+                }, 50);
+            }, 10);
+
+            // Autoclose after 4 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Robixlo | Bridging Theory & Industrial Execution</title>
+    <meta name="description" content="Discover how Robixlo bridges the gap between academic research and industrial execution, providing top-tier solutions in custom AI models and advanced hardware prototyping.">
+    
+    <!-- Google Fonts: Space Grotesk (tech/headings) & Inter (body copy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome v6 for modern tech icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#070a13',
+                        brandCardBg: '#0e1322',
+                        brandCyan: '#00f0ff',
+                        brandIndigo: '#6366f1',
+                        brandPurple: '#a855f7',
+                        brandGray: '#94a3b8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-slower': 'pulse-slower 12s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'pulse-slow': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.2' },
+                            '50%': { transform: 'scale(1.1) translate(15px, -15px)', opacity: '0.35' },
+                        },
+                        'pulse-slower': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.2' },
+                            '50%': { transform: 'scale(1.15) translate(-20px, 20px)', opacity: '0.4' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/css">
+        /* Custom scrollbar to match the futuristic feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070a13;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Ambient grid background overlay */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism custom panel */
+        .glass-panel {
+            background: rgba(14, 19, 34, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Card mouse coordination spotlight glow */
+        .glow-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            background: radial-gradient(
+                400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+                rgba(255, 255, 255, 0.06),
+                transparent 45%
+            );
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .glow-card:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-slate-100 font-sans antialiased selection:bg-brandCyan selection:text-brandDark overflow-x-hidden">
+
+    <!-- Global Background Elements -->
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[15%] right-[5%] w-[45vw] h-[45vw] rounded-full bg-brandIndigo/10 blur-[130px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-brandCyan/10 blur-[150px] animate-pulse-slower"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center group focus:outline-none">
+                <img src="assets/logo.png" alt="Robixlo Logo" class="h-10 w-auto object-contain mr-3 group-hover:scale-105 transition-transform duration-300">
+                <span class="font-heading font-bold text-2xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 group-hover:to-brandCyan transition-colors duration-300">
+                    Robixlo
+                </span>
+            </a>
+
+            <!-- Desktop Links (with About active highlight) -->
+            <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-medium tracking-wide">
+                <a href="index.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Home</a>
+                <a href="about.html" class="text-brandCyan transition-colors duration-200 focus:outline-none border-b-2 border-brandCyan pb-1">About</a>
+                <a href="services.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Services</a>
+                <a href="contact.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Contact Us</a>
+            </nav>
+
+            <!-- Desktop CTA -->
+            <div class="hidden md:block">
+                <a href="contact.html" class="relative group inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-slate-100 rounded-lg group bg-gradient-to-br from-brandCyan to-brandIndigo group-hover:from-brandCyan group-hover:to-brandIndigo hover:text-white focus:outline-none">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-brandDark rounded-md group-hover:bg-opacity-0">
+                        Discuss Project
+                    </span>
+                </a>
+            </div>
+
+            <!-- Mobile Burger Trigger -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-brandCyan transition-colors focus:outline-none" aria-label="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-brandDark/95 border-l border-white/10 backdrop-blur-xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+            <div class="flex flex-col h-full px-6 py-8">
+                <!-- Close Button & Header -->
+                <div class="flex items-center justify-between mb-12">
+                    <span class="font-heading font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-brandCyan to-brandIndigo">
+                        Robixlo Menu
+                    </span>
+                    <button id="mobile-menu-close" class="text-slate-400 hover:text-brandCyan transition-colors focus:outline-none">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Links -->
+                <nav class="flex flex-col gap-6 font-heading text-lg font-medium">
+                    <a href="index.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Home</a>
+                    <a href="about.html" class="mobile-link text-brandCyan border-b border-white/5 pb-2 transition-colors">About</a>
+                    <a href="services.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Services</a>
+                    <a href="contact.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Contact Us</a>
+                </nav>
+
+                <!-- Mobile Action CTA -->
+                <div class="mt-auto">
+                    <a href="contact.html" class="mobile-link block w-full py-4 text-center rounded-xl bg-gradient-to-r from-brandCyan to-brandIndigo text-brandDark font-heading font-bold hover:brightness-110 transition-all">
+                        Discuss Your Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main About Content -->
+    <main class="relative z-10 pt-28 pb-16">
+        
+        <!-- Identity Section -->
+        <section class="py-16 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Text Header -->
+                    <div class="lg:col-span-5 flex flex-col space-y-4">
+                        <div class="font-mono text-xs text-brandCyan tracking-widest uppercase">The Robixlo Identity</div>
+                        <h1 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight">
+                            Bridges the Gap Between Theory and Execution
+                        </h1>
+                        <div class="h-1 w-20 bg-gradient-to-r from-brandCyan to-brandIndigo rounded-full"></div>
+                    </div>
+
+                    <!-- Paragraph Content -->
+                    <div class="lg:col-span-7 flex flex-col space-y-6">
+                        <p class="text-lg md:text-xl text-slate-300 font-sans leading-relaxed">
+                            At Robixlo, we stand at the critical intersection of academic innovation and industrial operation. We recognize that breakthrough ideas often falter in the translation phase, which is why we offer flexible, comprehensive engineering services designed for agility.
+                        </p>
+                        <p class="text-slate-400 leading-relaxed font-sans">
+                            Whether you represent a university department seeking a rapid-turnaround hardware prototype for a semester project, or an enterprise stakeholder demanding a robust deep-learning infrastructure and high-performance embedded systems, we deliver. We handle the custom design, schematic layout, AI model tuning, and hardware optimization so you can scale rapidly.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Three Core Pillars -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+                    <div class="glass-panel p-6 rounded-xl border border-white/5 hover:border-brandCyan/20 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-brandCyan/10 text-brandCyan flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-heading font-semibold text-lg text-white mb-2">Academic Rigor</h3>
+                        <p class="text-sm text-slate-400 font-sans leading-relaxed">
+                            Deep scientific methodologies applied directly to physical prototypes and numerical calculations.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border border-white/5 hover:border-brandIndigo/20 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-brandIndigo/10 text-brandIndigo flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+                        <h3 class="font-heading font-semibold text-lg text-white mb-2">Industrial Reliability</h3>
+                        <p class="text-sm text-slate-400 font-sans leading-relaxed">
+                            Battle-tested system architectures prepared for heavy runtimes, hardware scaling, and safety standards.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border border-white/5 hover:border-brandPurple/20 transition-all duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-brandPurple/10 text-brandPurple flex items-center justify-center mb-4 text-lg">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="font-heading font-semibold text-lg text-white mb-2">Rapid Execution</h3>
+                        <p class="text-sm text-slate-400 font-sans leading-relaxed">
+                            Flexible pipeline execution resulting in accelerated iterations, clean coding structures, and quick turnarounds.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hardware Expertise Section -->
+        <section class="py-16 px-6 border-t border-white/5">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                    <div class="font-mono text-xs text-brandCyan tracking-widest uppercase font-semibold">Systems Integration</div>
+                    <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white">Our Hardware Expertise</h2>
+                    <p class="text-slate-400 font-sans text-sm md:text-base">
+                        We write custom firmware, optimize runtime pipelines, and build production integrations across industry-standard development boards and compute kits.
+                    </p>
+                </div>
+
+                <!-- 5-Card Grid showing hardware platforms -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1: Arduino Uno -->
+                    <div class="glow-card glass-panel rounded-2xl p-5 border border-white/5 hover:border-brandCyan/30 transition-all duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden rounded-t-lg bg-slate-950/40 w-full h-48 mb-4 border-b border-white/5 flex items-center justify-center">
+                                <img src="assets/uno_q.jpg" alt="Arduino Uno"
+                                    class="w-full h-48 object-cover rounded-t-lg relative z-10 group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-white mb-2 group-hover:text-brandCyan transition-colors">Arduino Uno</h3>
+                            <p class="text-xs text-slate-400 font-sans leading-relaxed mb-4">
+                                The standard controller for digital prototyping. We write clean, lightweight C++ firmware to manage multi-component sensors, relays, actuation hardware, and low-level communication links.
+                            </p>
+                        </div>
+                        <div class="font-mono text-[10px] text-brandCyan flex items-center gap-1.5 mt-auto">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandCyan animate-pulse"></span> LOW_LEVEL_I/O
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Jetson Orin Nano -->
+                    <div class="glow-card glass-panel rounded-2xl p-5 border border-white/5 hover:border-brandIndigo/30 transition-all duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden rounded-t-lg bg-slate-950/40 w-full h-48 mb-4 border-b border-white/5 flex items-center justify-center">
+                                <img src="assets/jetson_nano.png" alt="Jetson Orin Nano"
+                                    class="w-full h-48 object-cover rounded-t-lg relative z-10 group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-white mb-2 group-hover:text-brandIndigo transition-colors">Jetson Orin Nano</h3>
+                            <p class="text-xs text-slate-400 font-sans leading-relaxed mb-4">
+                                Our absolute go-to for edge deep learning inference. We design and install accelerated software containers utilizing CUDA, TensorRT, and DeepStream SDKs to achieve high frame-rates on site.
+                            </p>
+                        </div>
+                        <div class="font-mono text-[10px] text-brandIndigo flex items-center gap-1.5 mt-auto">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandIndigo animate-pulse"></span> CUDA_ACCELERATED
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Raspberry Pi -->
+                    <div class="glow-card glass-panel rounded-2xl p-5 border border-white/5 hover:border-brandPurple/30 transition-all duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden rounded-t-lg bg-slate-950/40 w-full h-48 mb-4 border-b border-white/5 flex items-center justify-center">
+                                <img src="assets/pi.jpg" alt="Raspberry Pi"
+                                    class="w-full h-48 object-cover rounded-t-lg relative z-10 group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-white mb-2 group-hover:text-brandPurple transition-colors">Raspberry Pi</h3>
+                            <p class="text-xs text-slate-400 font-sans leading-relaxed mb-4">
+                                The reliable workhorse for Linux IoT nodes. Perfect for data acquisition terminals, edge web portals, server broker nodes, and middle-tier telemetry logging applications.
+                            </p>
+                        </div>
+                        <div class="font-mono text-[10px] text-brandPurple flex items-center gap-1.5 mt-auto">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandPurple animate-pulse"></span> LINUX_IOT_NODE
+                        </div>
+                    </div>
+
+                    <!-- Card 4: AMD Xilinx Kria -->
+                    <div class="glow-card glass-panel rounded-2xl p-5 border border-white/5 hover:border-brandIndigo/30 transition-all duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden rounded-t-lg bg-slate-950/40 w-full h-48 mb-4 border-b border-white/5 flex items-center justify-center">
+                                <img src="assets/kria_kit.jpg" alt="AMD Xilinx Kria"
+                                    class="w-full h-48 object-cover rounded-t-lg relative z-10 group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-white mb-2 group-hover:text-brandIndigo transition-colors">AMD Xilinx Kria</h3>
+                            <p class="text-xs text-slate-400 font-sans leading-relaxed mb-4">
+                                The heavyweight for custom hardware acceleration. We design bespoke Verilog IP cores and optimize C-based hardware drivers using Vitis and Vivado, delivering maximum edge performance for industrial vision pipelines.
+                            </p>
+                        </div>
+                        <div class="font-mono text-[10px] text-brandIndigo flex items-center gap-1.5 mt-auto">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandIndigo animate-pulse"></span> FPGA_ACCELERATED
+                        </div>
+                    </div>
+
+                    <!-- Card 5: OAK-D Spatial Depth Camera -->
+                    <div class="glow-card glass-panel rounded-2xl p-5 border border-white/5 hover:border-brandCyan/30 transition-all duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="relative overflow-hidden rounded-t-lg bg-slate-950/40 w-full h-48 mb-4 border-b border-white/5 flex items-center justify-center">
+                                <img src="assets/oakd.jpg" alt="OAK-D Camera"
+                                    class="w-full h-48 object-cover rounded-t-lg relative z-10 group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-white mb-2 group-hover:text-brandCyan transition-colors">OAK-D Camera</h3>
+                            <p class="text-xs text-slate-400 font-sans leading-relaxed mb-4">
+                                Real-time spatial AI camera depth tracking. We write custom pipeline configurations to process disparity maps, object tracking coordinates, and raw camera vectors directly on-chip.
+                            </p>
+                        </div>
+                        <div class="font-mono text-[10px] text-brandCyan flex items-center gap-1.5 mt-auto">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandCyan animate-pulse"></span> SPATIAL_AI_DEPTH
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-brandDark/80 backdrop-blur-md relative z-10 py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <!-- Copyright -->
+            <div class="text-xs text-slate-500 font-mono text-center sm:text-left">
+                &copy; 2026 Robixlo. All rights reserved. Built for engineering precision.
+            </div>
+
+            <!-- Social Links (Instagram / Facebook Placeholders) -->
+            <div class="flex items-center gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation & Cards Script -->
+    <script>
+        // 1. Mobile Menu Drawer Navigation
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuCloseBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close drawer if clicking outside drawer elements
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('translate-x-full')) return;
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // 2. Navigation Header Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.remove('border-transparent', 'h-20');
+            } else {
+                navbar.classList.remove('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.add('border-transparent', 'h-20');
+            }
+        });
+
+        // 3. Mouse Coordinate Tracking for Glowing Cards Effect
+        // real developers write this to make cards feel interactive and dynamic
+        const cards = document.querySelectorAll('.glow-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // relative cursor horizontal offset
+                const y = e.clientY - rect.top;  // relative cursor vertical offset
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>

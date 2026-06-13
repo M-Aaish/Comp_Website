@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robixlo | End-to-End Engineering, AI & Hardware Solutions</title>
+    <meta name="description" content="Robixlo bridges the gap between academic research and industrial execution, providing top-tier solutions in embedded systems, custom AI model training, computer vision pipelines, and custom electronics R&D.">
+    
+    <!-- Google Fonts: Space Grotesk (tech/headings) & Inter (body copy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome v6 for modern tech icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#070a13',
+                        brandCardBg: '#0e1322',
+                        brandCyan: '#00f0ff',
+                        brandIndigo: '#6366f1',
+                        brandPurple: '#a855f7',
+                        brandGray: '#94a3b8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-slower': 'pulse-slower 12s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'pulse-slow': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.2' },
+                            '50%': { transform: 'scale(1.15) translate(20px, -20px)', opacity: '0.4' },
+                        },
+                        'pulse-slower': {
+                            '0%, 100%': { transform: 'scale(1) translate(0px, 0px)', opacity: '0.25' },
+                            '50%': { transform: 'scale(1.2) translate(-30px, 30px)', opacity: '0.45' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/css">
+        /* Custom scrollbar to match the futuristic feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070a13;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Ambient grid background overlay */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism custom panel */
+        .glass-panel {
+            background: rgba(14, 19, 34, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-slate-100 font-sans antialiased selection:bg-brandCyan selection:text-brandDark overflow-x-hidden">
+
+    <!-- Global Background Elements -->
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Radial ambient glows for background depth -->
+        <div class="absolute top-[10%] left-[5%] w-[45vw] h-[45vw] rounded-full bg-brandCyan/10 blur-[130px] animate-pulse-slow"></div>
+        <div class="absolute top-[40%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-brandPurple/10 blur-[150px] animate-pulse-slower"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center group focus:outline-none">
+                <img src="assets/logo.png" alt="Robixlo Logo" class="h-10 w-auto object-contain mr-3 group-hover:scale-105 transition-transform duration-300">
+                <span class="font-heading font-bold text-2xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 group-hover:to-brandCyan transition-colors duration-300">
+                    Robixlo
+                </span>
+            </a>
+
+            <!-- Desktop Links (with home active highlight) -->
+            <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-medium tracking-wide">
+                <a href="index.html" class="text-brandCyan transition-colors duration-200 focus:outline-none border-b-2 border-brandCyan pb-1">Home</a>
+                <a href="about.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">About</a>
+                <a href="services.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Services</a>
+                <a href="contact.html" class="text-slate-300 hover:text-brandCyan transition-colors duration-200 focus:outline-none pb-1">Contact Us</a>
+            </nav>
+
+            <!-- Desktop CTA -->
+            <div class="hidden md:block">
+                <a href="contact.html" class="relative group inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-slate-100 rounded-lg group bg-gradient-to-br from-brandCyan to-brandIndigo group-hover:from-brandCyan group-hover:to-brandIndigo hover:text-white focus:outline-none">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-brandDark rounded-md group-hover:bg-opacity-0">
+                        Discuss Project
+                    </span>
+                </a>
+            </div>
+
+            <!-- Mobile Burger Trigger -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-200 hover:text-brandCyan transition-colors focus:outline-none" aria-label="Toggle navigation menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Overlay -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-brandDark/95 border-l border-white/10 backdrop-blur-xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+            <div class="flex flex-col h-full px-6 py-8">
+                <!-- Close Button & Header -->
+                <div class="flex items-center justify-between mb-12">
+                    <span class="font-heading font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-brandCyan to-brandIndigo">
+                        Robixlo Menu
+                    </span>
+                    <button id="mobile-menu-close" class="text-slate-400 hover:text-brandCyan transition-colors focus:outline-none">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Links -->
+                <nav class="flex flex-col gap-6 font-heading text-lg font-medium">
+                    <a href="index.html" class="mobile-link text-brandCyan border-b border-white/5 pb-2 transition-colors">Home</a>
+                    <a href="about.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">About</a>
+                    <a href="services.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Services</a>
+                    <a href="contact.html" class="mobile-link text-slate-300 hover:text-brandCyan border-b border-white/5 pb-2 transition-colors">Contact Us</a>
+                </nav>
+
+                <!-- Mobile Action CTA -->
+                <div class="mt-auto">
+                    <a href="contact.html" class="mobile-link block w-full py-4 text-center rounded-xl bg-gradient-to-r from-brandCyan to-brandIndigo text-brandDark font-heading font-bold hover:brightness-110 transition-all">
+                        Discuss Your Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Hero Content -->
+    <main class="relative z-10">
+        <section id="home" class="min-h-screen flex items-center justify-center pt-28 pb-16 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Column: Intro Text -->
+                <div class="lg:col-span-6 flex flex-col items-start space-y-8 text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs text-brandCyan font-mono tracking-wider uppercase border border-brandCyan/20">
+                        <span class="w-2 h-2 rounded-full bg-brandCyan animate-ping"></span>
+                        Next-Gen Engineering Ecosystem
+                    </div>
+                    
+                    <h1 class="font-heading font-bold text-5xl sm:text-6xl md:text-7xl leading-tight tracking-tight select-none">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-300">We Are</span>
+                        <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-brandCyan via-brandIndigo to-brandPurple">
+                            Robixlo
+                        </span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-slate-400 font-sans leading-relaxed max-w-2xl">
+                        End-to-End Engineering, AI, and Hardware Solutions. We bridge the gap between academic research and industrial execution.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                        <a href="contact.html" class="px-8 py-4 text-center rounded-xl bg-gradient-to-r from-brandCyan to-brandIndigo text-brandDark font-heading font-semibold hover:opacity-95 shadow-lg shadow-brandCyan/20 transition-all duration-300 hover:scale-[1.02] focus:outline-none">
+                            Discuss Your Project <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                        <a href="services.html" class="px-8 py-4 text-center rounded-xl glass-panel text-slate-200 font-heading font-semibold hover:bg-white/5 transition-all duration-300 hover:scale-[1.02] border border-white/10 focus:outline-none">
+                            Explore Services
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Right Column: Canvas YOLO Simulation -->
+                <div class="lg:col-span-6 flex justify-center items-center relative">
+                    <!-- Subtle glow behind our canvas -->
+                    <div class="absolute w-80 h-80 rounded-full bg-brandIndigo/15 blur-[100px] pointer-events-none"></div>
+                    
+                    <!-- Canvas Container -->
+                    <div class="w-full max-w-lg aspect-[4/3] rounded-2xl glass-panel p-4 relative flex flex-col justify-between overflow-hidden shadow-2xl border border-white/10">
+                        <!-- Neon border lines for framing -->
+                        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brandCyan to-transparent"></div>
+                        
+                        <!-- Top HUD Bar -->
+                        <div class="flex items-center justify-between pb-3 border-b border-white/5 font-mono text-[10px] text-slate-400">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                CAM_01 // YOLOv8_LIVE_INFERENCE
+                            </span>
+                            <span id="hud-inference-time" class="text-brandCyan">INF_TIME: 12.3ms</span>
+                        </div>
+
+                        <!-- Canvas viewport -->
+                        <div class="my-3 relative w-full h-full flex items-center justify-center rounded-lg bg-[#04060b] overflow-hidden">
+                            <canvas id="vision-canvas" class="w-full h-full block"></canvas>
+                        </div>
+
+                        <!-- Bottom HUD bar -->
+                        <div class="grid grid-cols-3 gap-2 border-t border-white/5 pt-3 text-center font-mono text-[10px]">
+                            <div>
+                                <div class="text-slate-500 uppercase">FPS</div>
+                                <div id="hud-fps" class="text-xs text-green-400 font-semibold">60.0</div>
+                            </div>
+                            <div>
+                                <div class="text-slate-500 uppercase">NMS_THRESH</div>
+                                <div class="text-xs text-slate-300 font-semibold">0.45</div>
+                            </div>
+                            <div>
+                                <div class="text-slate-500 uppercase">OBJECTS</div>
+                                <div id="hud-count" class="text-xs text-brandPurple font-semibold">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-brandDark/80 backdrop-blur-md relative z-10 py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <!-- Copyright -->
+            <div class="text-xs text-slate-500 font-mono text-center sm:text-left">
+                &copy; 2026 Robixlo. All rights reserved. Built for engineering precision.
+            </div>
+
+            <!-- Social Links (Instagram / Facebook Placeholders) -->
+            <div class="flex items-center gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-white/5 text-slate-400 hover:text-brandCyan hover:bg-brandCyan/10 border border-white/5 hover:border-brandCyan/20 flex items-center justify-center text-sm transition-all focus:outline-none" aria-label="Follow Robixlo on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Scripts -->
+    <script>
+        // 1. Mobile Menu Drawer Navigation
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        mobileMenuCloseBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close drawer if clicking outside drawer elements
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('translate-x-full')) return;
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // 2. Navigation Header Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.remove('border-transparent', 'h-20');
+            } else {
+                navbar.classList.remove('bg-brandDark/85', 'backdrop-blur-md', 'border-white/5', 'h-16');
+                navbar.classList.add('border-transparent', 'h-20');
+            }
+        });
+    </script>
+
+    <!-- YOLO object detection canvas simulation script -->
+    <script>
+        // Set up the canvas context
+        const canvas = document.getElementById('vision-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Define tracking classes
+        const classNames = ['person', 'vehicle', 'drone', 'robot_arm'];
+        const classColors = {
+            'person': '#00f0ff',       // Cyan
+            'vehicle': '#6366f1',      // Indigo
+            'drone': '#a855f7',        // Purple
+            'robot_arm': '#10b981'     // Emerald Green
+        };
+
+        // Simulating target tracking coordinates
+        // real engineers structure coordinates this way inside their simulation pipelines
+        const detectedObjects = [];
+        const maxObjects = 5;
+
+        // Initialize mock targets
+        for (let i = 0; i < maxObjects; i++) {
+            detectedObjects.push({
+                x: Math.random() * 300 + 50,
+                y: Math.random() * 200 + 50,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
+                width: Math.random() * 50 + 40,
+                height: Math.random() * 50 + 50,
+                classId: Math.floor(Math.random() * classNames.length),
+                confScore: Math.random() * 0.15 + 0.80, // Scores between 80% and 95%
+                id: i + 1
+            });
+        }
+
+        // Radar line sweep tracking variables
+        let scanY = 0;
+        let scanSpeed = 1.2;
+
+        // FPS meter tracking
+        let lastFrameTime = performance.now();
+        let frameCount = 0;
+        let currentFps = 60.0;
+
+        // Dynamic metrics elements
+        const hudInferenceTime = document.getElementById('hud-inference-time');
+        const hudFps = document.getElementById('hud-fps');
+        const hudCount = document.getElementById('hud-count');
+
+        // Resize function to map drawing units to high DPI screens
+        function resizeCanvas() {
+            const rect = canvas.parentNode.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Main YOLO Loop Simulation
+        function runInferenceLoop() {
+            const now = performance.now();
+            const elapsed = now - lastFrameTime;
+            frameCount++;
+
+            // Update FPS estimation once a second
+            if (elapsed >= 1000) {
+                currentFps = ((frameCount * 1000) / elapsed).toFixed(1);
+                hudFps.innerText = currentFps;
+                frameCount = 0;
+                lastFrameTime = now;
+            }
+
+            // Simulating variable inference delay in GPU pipelines
+            const mockInferenceTime = (8.2 + Math.random() * 4.5).toFixed(1);
+            hudInferenceTime.innerText = `INF_TIME: ${mockInferenceTime}ms`;
+            
+            // Clear buffer
+            ctx.fillStyle = '#04060b';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw abstract sensor target lines or grid intersections
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.lineWidth = 1;
+            for (let i = 40; i < canvas.width; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            for (let j = 40; j < canvas.height; j += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, j);
+                ctx.lineTo(canvas.width, j);
+                ctx.stroke();
+            }
+
+            // Perform NMS and object tracking logic simulation
+            let activeCount = 0;
+            detectedObjects.forEach(obj => {
+                // Update movement boundary limits
+                obj.x += obj.vx;
+                obj.y += obj.vy;
+
+                // Wall collisions (keeping within bounds)
+                if (obj.x < 10 || obj.x + obj.width > canvas.width - 10) {
+                    obj.vx *= -1;
+                    obj.x = Math.max(10, Math.min(obj.x, canvas.width - obj.width - 10));
+                }
+                if (obj.y < 10 || obj.y + obj.height > canvas.height - 10) {
+                    obj.vy *= -1;
+                    obj.y = Math.max(10, Math.min(obj.y, canvas.height - obj.height - 10));
+                }
+
+                const className = classNames[obj.classId];
+                const color = classColors[className];
+
+                // Check if our scanning line passes through this object
+                // If it does, we simulate active classification trigger and light up
+                const isScanning = (scanY >= obj.y && scanY <= obj.y + obj.height);
+                
+                // Draw simulated bounding box (bbox)
+                ctx.strokeStyle = color;
+                ctx.lineWidth = isScanning ? 2.5 : 1.5;
+                ctx.strokeRect(obj.x, obj.y, obj.width, obj.height);
+
+                // Draw bounding box corner markers (looks cool and authentic)
+                ctx.fillStyle = color;
+                const markerLen = 8;
+                // Top-Left corner
+                ctx.fillRect(obj.x - 1, obj.y - 1, markerLen, 2);
+                ctx.fillRect(obj.x - 1, obj.y - 1, 2, markerLen);
+                // Top-Right corner
+                ctx.fillRect(obj.x + obj.width - markerLen + 1, obj.y - 1, markerLen, 2);
+                ctx.fillRect(obj.x + obj.width - 1, obj.y - 1, 2, markerLen);
+                // Bottom-Left corner
+                ctx.fillRect(obj.x - 1, obj.y + obj.height - 1, markerLen, 2);
+                ctx.fillRect(obj.x - 1, obj.y + obj.height - markerLen + 1, 2, markerLen);
+                // Bottom-Right corner
+                ctx.fillRect(obj.x + obj.width - markerLen + 1, obj.y + obj.height - 1, markerLen, 2);
+                ctx.fillRect(obj.x + obj.width - 1, obj.y + obj.height - markerLen + 1, 2, markerLen);
+
+                // BBox tracking Label Box
+                ctx.fillStyle = color;
+                ctx.font = '10px "Roboto Mono", monospace';
+                const labelText = `${className}:${Math.floor(obj.confScore * 100)}%`;
+                const labelWidth = ctx.measureText(labelText).width + 8;
+                
+                ctx.fillRect(obj.x - 1, obj.y - 16, labelWidth, 16);
+                
+                // Text inside box
+                ctx.fillStyle = '#070a13';
+                ctx.fillText(labelText, obj.x + 3, obj.y - 4);
+
+                // Center tracking dot
+                const cx = obj.x + obj.width / 2;
+                const cy = obj.y + obj.height / 2;
+                ctx.fillStyle = isScanning ? '#ffffff' : color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw target tracking lines
+                ctx.strokeStyle = color;
+                ctx.globalAlpha = 0.15;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(canvas.width / 2, canvas.height); // Camera focal reference point
+                ctx.stroke();
+                ctx.globalAlpha = 1.0;
+
+                activeCount++;
+            });
+
+            // Update dynamic HUD counters
+            hudCount.innerText = activeCount;
+
+            // Draw radar/scanning sweep line overlay
+            scanY += scanSpeed;
+            if (scanY > canvas.height) {
+                scanY = 0;
+            }
+            
+            // Render scanning beam gradient
+            const scanGrad = ctx.createLinearGradient(0, scanY - 20, 0, scanY);
+            scanGrad.addColorStop(0, 'transparent');
+            scanGrad.addColorStop(1, 'rgba(0, 240, 255, 0.15)'); // soft cyan beam
+            ctx.fillStyle = scanGrad;
+            ctx.fillRect(0, Math.max(0, scanY - 20), canvas.width, Math.min(20, scanY));
+
+            // Laser scanline center line
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, scanY);
+            ctx.lineTo(canvas.width, scanY);
+            ctx.stroke();
+
+            requestAnimationFrame(runInferenceLoop);
+        }
+
+        // Run simulation
+        setTimeout(runInferenceLoop, 200);
+    </script>
+</body>
+</html>
